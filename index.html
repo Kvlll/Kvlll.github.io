@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>电子健康证查询</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html {
+      overflow-x: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
+      background-color: #f5f5f5;
+      padding-bottom: 70px;
+    }
+
+    .page-header {
+      background: linear-gradient(135deg, #4a90d9 0%, #357abd 100%);
+      color: #fff;
+      text-align: center;
+      padding: 16px 10px 14px;
+      font-size: 15px;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+    .page-header .subtitle {
+      font-size: 11px;
+      opacity: 0.85;
+      margin-top: 4px;
+      font-weight: 400;
+    }
+
+    .cardpic {
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 12px 10px;
+      text-align: center;
+    }
+    .cardpic img {
+      width: 100%;
+      max-width: 350px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      display: block;
+      margin: 0 auto;
+    }
+    .cardpic .label {
+      font-size: 13px;
+      color: #666;
+      margin-bottom: 8px;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+
+    .section-label {
+      font-size: 13px;
+      color: #666;
+      text-align: center;
+      padding: 8px 0 4px;
+      letter-spacing: 2px;
+    }
+
+    .cardinfo {
+      display: flex;
+      justify-content: center;
+      margin: 15px 0 0 0;
+      font-size: 12px;
+      background-color: #fff;
+    }
+    .cardinfo .card {
+      width: 350px;
+      height: 230px;
+      position: relative;
+      background-color: #f5f5f5;
+      border: 1px solid #d4d4d4;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cardinfo .card .frontImg {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: none;
+      background: #fff;
+    }
+    .cardinfo .card .frontImg.active { display: block; }
+    .cardinfo .card .frontImg-placeholder {
+      color: #999;
+      font-size: 13px;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .cardinfo-r {
+      display: flex;
+      justify-content: center;
+      margin: 5px 0 20px 0;
+      font-size: 12px;
+      background-color: #fff;
+    }
+    .cardinfo-r .card-r {
+      width: 350px;
+      height: 220px;
+      position: relative;
+      border: 1px solid #d4d4d4;
+      border-radius: 10px;
+      background-color: #fff;
+    }
+    .cardinfo-r .card-r .top {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      background-color: #4a90d9;
+      line-height: 6px;
+      border-radius: 10px 10px 0 0;
+      color: #fff;
+    }
+    .cardinfo-r .card-r .title {
+      text-align: center;
+      font-weight: 600;
+      line-height: 40px;
+      padding-top: 12px;
+      font-size: 18px;
+      word-spacing: 3px;
+      color: #030101;
+    }
+    .cardinfo-r .card-r .card-ctx {
+      display: flex;
+      height: 100px;
+      width: 100%;
+      align-items: center;
+    }
+    .cardinfo-r .card-r .card-ctx #qrcode {
+      width: 80px;
+      height: 80px;
+      text-align: center;
+      padding: 0 10px 10px 10px;
+      margin-left: 10px;
+      font-size: 12px;
+      display: inline-block;
+    }
+    .cardinfo-r .card-r .card-ctx #qrcode img,
+    .cardinfo-r .card-r .card-ctx #qrcode canvas {
+      width: 80px !important;
+      height: 80px !important;
+    }
+    .cardinfo-r .card-r .card-ctx .card-ctx-desc {
+      width: calc(100% - 80px);
+      line-height: 25px;
+      padding: 5px;
+      margin-top: 0;
+      color: #030101;
+      font-weight: 545;
+      font-size: 14px;
+      text-align: center;
+    }
+    .cardinfo-r .card-r .sign {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      font-size: 12px;
+      height: 30px;
+    }
+    .cardinfo-r .card-r .bottom {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      background-color: #fff;
+      line-height: 25px;
+      border-radius: 0 0 10px 10px;
+      color: #030101;
+      font-size: 12px;
+    }
+
+    .btn-orange {
+      display: block;
+      text-align: center;
+      background-color: #eba753;
+      color: #fff;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 10px;
+      width: calc(100% - 80px);
+      margin: 0 auto 10px;
+      font-size: 14px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-blue {
+      display: block;
+      text-align: center;
+      background-color: #5bc0de;
+      color: #fff;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 10px;
+      width: calc(100% - 80px);
+      margin: 0 auto 10px;
+      font-size: 14px;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+    }
+
+    .page-foot {
+      position: fixed;
+      bottom: 0;
+      
