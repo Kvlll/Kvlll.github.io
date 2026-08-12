@@ -445,9 +445,9 @@
   <a href="javascript:void(0)" class="btn-blue" onclick="showToast('功能开发中')">绑定身份获取通知</a>
 
   <div class="page-foot">
-  <div onclick="location.href='https://www.ynhdkc.com/'">体检预约</div>
-  <div onclick="window.open('https://mp.weixin.qq.com/s/A7FSjIMRFkV10hFEkA-bnA','_blank')">医院介绍</div>
-</div>
+  <a href="https://www.ynhdkc.com/" style="display:flex;align-items:center;justify-content:center;width:50%;color:#333;text-decoration:none;border-right:1px solid #f2f2f2;">体检预约</a>
+  <a href="https://mp.weixin.qq.com/s/A7FSjIMRFkV10hFEkA-bnA" target="_blank" style="display:flex;align-items:center;justify-content:center;width:50%;color:#333;text-decoration:none;">医院介绍</a>
+  </div>
 
   <!-- 密码弹窗 -->
   <div class="pwd-overlay" id="pwdOverlay">
@@ -638,7 +638,7 @@
       applyDataToPage(data);
 
       // 先绑定所有事件（防止二维码加载失败导致按钮失效）
-      document.getElementById('btnAppointment').addEventListener('click', openPwdModal);
+     // document.getElementById('btnAppointment').addEventListener('click', openPwdModal);
       document.getElementById('pwdInput').addEventListener('keydown', function(e) {
         if (e.key === 'Enter') verifyPassword();
       });
