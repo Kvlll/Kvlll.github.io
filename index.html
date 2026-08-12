@@ -624,9 +624,9 @@
       var container = document.getElementById('qrcode');
       container.innerHTML = '';
       new QRCode(container, {
-        text: window.location.href.split('?')[0].replace(/\/?$/, '') + '/index.html',
-        width: 80,
-        height: 80,
+  text: window.location.href,   // 👈 改成这个，扫出来就是你现在的完整链接
+  width: 80,
+  height: 80,
         colorDark: '#000000',
         colorLight: '#ffffff',
         correctLevel: QRCode.CorrectLevel.M
